@@ -1,7 +1,7 @@
 import flet as ft
 
-def main(page: ft.Page):
-    page.title='HORUS'
+def RegisterStudentView(router):
+
     img = ft.Image(
         src=f"images\HORUS_1.png",
         
@@ -22,8 +22,4 @@ def main(page: ft.Page):
         horizontal_alignment= ft.CrossAxisAlignment.CENTER
     )
     
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.add(view)
-
-ft.app(target=main)
+    return view
