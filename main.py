@@ -1,14 +1,17 @@
 import flet as ft
-from views.routes import router
+from routes import router_handler
 
 def main(page: ft.Page):
 
-    page.theme_mode = "dark"
-    page.on_route_change = router.route_change
-    router.page = page
-    page.add(
-        router.body
-    )
+    def route_change(route):
+        page.title = "HORUS"
+        page.theme_mode = "dark"
+        page.views.clear()
+        page.views.append(
+            router_handler(page)[page.route]
+        )
+    
+    page.on_route_change = route_change
     page.go('/')
 
-ft.app(target=main, assets_dir="assets")
+ft.app(target=main)
