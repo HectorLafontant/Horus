@@ -15,59 +15,29 @@ class RegisterStudent(ft.UserControl):
         id_stu = ft.Ref[ft.TextField]
 
 
-        first_name_field = ft.Column(
-            [
-                ft.Row(
-                    [
-                        ft.Text(value='Nombre', weight=ft.FontWeight.BOLD, size=24)
-                    ]
-                ),
-                ft.Row(
-                    [
-                        ft.TextField(ref=firstname, expand=True)
-                    ]
-                )
-            ],
-            spacing= 10
-        )
+        first_name_field = ft.TextField(ref=firstname, expand=True, label='Nombre')
 
-        last_name_field = ft.Column(
-            [
-                ft.Row(
-                    [
-                        ft.Text(value='Apellido', weight=ft.FontWeight.BOLD, size=24)
-                    ]
-                ),
-                ft.Row(
-                    [
-                        ft.TextField(ref=lastname, expand=True)
-                    ]
-                )
-            ],
-            spacing= 10
-        )
+        last_name_field = ft.TextField(ref=lastname, expand=True, label='Apellido')
 
-        id_field = ft.Column(
-            [
-                ft.Row(
-                    [
-                        ft.Text(value='Cedula', weight=ft.FontWeight.BOLD, size=24)
-                    ]
-                ),
-                ft.Row(
-                    [
-                        ft.TextField(ref=id_stu, expand=True)
-                    ]
-                )
-            ],
-            spacing= 10
-        )
-
+        id_field = ft.TextField(ref=id_stu, expand=True, label='Cedula')
+                   
         fields = ft.Column(
             [
-                first_name_field,
-                last_name_field,
-                id_field
+                ft.Row([
+                    first_name_field
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row([
+                    last_name_field
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row([
+                    id_field
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+                )
             ],
             spacing=25
         )

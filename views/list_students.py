@@ -6,18 +6,29 @@ class ListStudents(ft.UserControl):
         self.page = page
 
     def build(self):
+
+        def cambio(e):
+            pass
+    
+        def enter(e):
+            pass
+
+        def presionar(e):
+            pass
         
-        filter_students = ft.TextField(
-            label='Buscar Estudiante',
-            text_align='justify',
-            border_radius=10,
-            content_padding=10,
-            focused_border_color='#6DB9EF',
-            cursor_radius=40,
-            icon=ft.icons.SEARCH
-            )
+        # filter_students = ft.SearchBar(
+        #     view_elevation=4,
+        #     divider_color=ft.colors.AMBER,
+        #     bar_hint_text="Buscar Estudiante",
+        #     view_hint_text="Coloque el nombre del estudiante",
+        #     on_change=cambio,
+        #     on_submit=enter,
+        #     on_tap=presionar,
+        #     icon=ft.icons.SEARCH
+        #     )
         
-        view = ft.DataTable(
+        table = ft.DataTable(
+            column_spacing=200,
             columns = [
                 ft.DataColumn(ft.Text('Nombre')),
                 ft.DataColumn(ft.Text('Apellido')),
@@ -32,5 +43,20 @@ class ListStudents(ft.UserControl):
                     ],
                 ),
             ]
+        )
+
+        view = ft.Column([
+            ft.Row([
+                table
+            ],
+            alignment=ft.MainAxisAlignment.CENTER
+            ),
+            ft.Row([
+                ft.ElevatedButton(text='Volver al menu principal', height=50, width=400, on_click=lambda _: self.page.go('/'))
+            ],
+            alignment=ft.MainAxisAlignment.CENTER
+            )
+        ],
+        spacing = 50,
         )
         return view
