@@ -49,6 +49,11 @@ class MainMenu(ft.UserControl):
                         ft.ElevatedButton(text='Registrar asistencia', height=50, width=400)
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row([
+                    ft.ElevatedButton(text='Lista de estudiantes registrados', height=50, width=400, on_click=lambda _: self.page.go('/student'))
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
                 )
             ],
             spacing= 20,
