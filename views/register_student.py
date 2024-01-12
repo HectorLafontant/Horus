@@ -10,6 +10,11 @@ class RegisterStudent(ft.UserControl):
         menu_button = ft.ElevatedButton(text='Volver al menu principal', height=50, width=400)
         menu_button.on_click = lambda _: self.page.go('/')
 
+        firstname = ft.Ref[ft.TextField]
+        lastname = ft.Ref[ft.TextField]
+        id_stu = ft.Ref[ft.TextField]
+
+
         first_name_field = ft.Column(
             [
                 ft.Row(
@@ -19,7 +24,7 @@ class RegisterStudent(ft.UserControl):
                 ),
                 ft.Row(
                     [
-                        ft.TextField(expand=True)
+                        ft.TextField(ref=firstname, expand=True)
                     ]
                 )
             ],
@@ -35,7 +40,7 @@ class RegisterStudent(ft.UserControl):
                 ),
                 ft.Row(
                     [
-                        ft.TextField(expand=True)
+                        ft.TextField(ref=lastname, expand=True)
                     ]
                 )
             ],
@@ -51,7 +56,7 @@ class RegisterStudent(ft.UserControl):
                 ),
                 ft.Row(
                     [
-                        ft.TextField(expand=True)
+                        ft.TextField(ref=id_stu, expand=True)
                     ]
                 )
             ],
