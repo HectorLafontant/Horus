@@ -26,13 +26,11 @@ class ListStudents(ft.UserControl):
             rows = [
                  ft.DataRow(
                     cells = [
-                        ft.DataCell(), #Variable para el nombre del estudiante
-                        ft.DataCell(), #variable para el apellido de un estudiante
-                        ft.DataCell(), #Variable para la cedula de un estudiante
+                        ft.DataCell(ft.Text('Yorgel')), #Variable para el nombre del estudiante
+                        ft.DataCell(ft.Text('Páez')), #variable para el apellido de un estudiante
+                        ft.DataCell(ft.Text(1000000)), #Variable para la cedula de un estudiante
                     ],
                 ),
             ]
         )
-        self.page.scroll = 'always'
-
         return view
