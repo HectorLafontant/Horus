@@ -2,7 +2,7 @@ import flet as ft
 
 from views.main_menu import MainMenu
 from views.register_student import RegisterStudent
-from views.list_students import ListStudents
+from views.students_list import StudentsList
 from views.attendance_days import AttendanceDays
 
 def router_handler(page):
@@ -19,10 +19,10 @@ def router_handler(page):
                 RegisterStudent(page)
             ]
         ),
-        '/student': ft.View(
-            route='/student',
+        '/students_list': ft.View(
+            route='/students_list',
             controls=[
-                ListStudents(page)
+                StudentsList(page)
             ]
         ),
         '/attendance_days': ft.View(

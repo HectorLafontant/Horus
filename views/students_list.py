@@ -1,11 +1,14 @@
 import flet as ft
 
-class ListStudents(ft.UserControl):
+class StudentsList(ft.UserControl):
     def __init__(self, page):
         super().__init__()
         self.page = page
 
     def build(self):
+
+        register_student_button = ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
+        register_student_button.on_click = lambda _: self.page.go('/register')
 
         def cambio(e):
             pass
@@ -46,15 +49,23 @@ class ListStudents(ft.UserControl):
         )
 
         view = ft.Column([
-            ft.Row([
-                table
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
+            ft.Row(
+                [
+                    register_student_button
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
             ),
-            ft.Row([
-                ft.ElevatedButton(text='Volver al menu principal', height=50, width=400, on_click=lambda _: self.page.go('/'))
-            ],
-            alignment=ft.MainAxisAlignment.CENTER
+            ft.Row(
+                [
+                    table
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+            ),
+            ft.Row(
+                [
+                    ft.ElevatedButton(text='Volver al menu principal', height=50, width=400, on_click=lambda _: self.page.go('/'))
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
             )
         ],
         spacing = 50,
