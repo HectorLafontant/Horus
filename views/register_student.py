@@ -7,8 +7,8 @@ class RegisterStudent(ft.UserControl):
 
     def build(self):
 
-        menu_button = ft.ElevatedButton(text='Volver al menu principal', height=50, width=400)
-        menu_button.on_click = lambda _: self.page.go('/')
+        menu_button = ft.ElevatedButton(text='Volver', height=50, width=400)
+        menu_button.on_click = lambda _: self.page.go('/students_list')
 
         firstname = ft.Ref[ft.TextField]
         lastname = ft.Ref[ft.TextField]
