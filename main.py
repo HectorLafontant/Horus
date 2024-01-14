@@ -6,6 +6,8 @@ def main(page: ft.Page):
     def route_change(route):
         page.title = "HORUS"
         page.theme_mode = "dark"
+        page.vertical_alignment='center'
+        page.horizontal_alignment='center'
         page.views.clear()
         page.views.append(
             router_handler(page)[page.route]

@@ -7,19 +7,27 @@ class RegisterStudent(ft.UserControl):
 
     def build(self):
 
+        #funciones
+
+        def regis_estudiante(e):
+
+            text_est.controls.append(ft.Text(value=f'El estudiante es: {first_name_field.value}'))
+            first_name_field.value = ''
+            view.update()
+
+        #########
+
         menu_button = ft.ElevatedButton(text='Volver al menu principal', height=50, width=400)
         menu_button.on_click = lambda _: self.page.go('/')
 
-        firstname = ft.Ref[ft.TextField]
-        lastname = ft.Ref[ft.TextField]
-        id_stu = ft.Ref[ft.TextField]
 
+        first_name_field = ft.TextField(expand=True, label='Nombre')
 
-        first_name_field = ft.TextField(ref=firstname, expand=True, label='Nombre')
+        last_name_field = ft.TextField(expand=True, label='Apellido')
 
-        last_name_field = ft.TextField(ref=lastname, expand=True, label='Apellido')
+        id_field = ft.TextField(expand=True, label='Cedula')
 
-        id_field = ft.TextField(ref=id_stu, expand=True, label='Cedula')
+        text_est = ft.Column()
                    
         fields = ft.Column(
             [
@@ -43,10 +51,10 @@ class RegisterStudent(ft.UserControl):
         )
 
         buttons = ft.Column(
-            [
+                [
                 ft.Row(
                     [
-                        ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
+                        ft.ElevatedButton(text='Registrar estudiante', height=50, width=400, on_click=regis_estudiante)
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
@@ -55,7 +63,8 @@ class RegisterStudent(ft.UserControl):
                         menu_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
-                )
+                ),
+                text_est
             ],
             spacing=20
         )
