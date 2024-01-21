@@ -1,5 +1,5 @@
 import flet as ft
-
+from DataBase import students_database
 class StudentsList(ft.UserControl):
     def __init__(self, page):
         super().__init__()
@@ -18,18 +18,7 @@ class StudentsList(ft.UserControl):
 
         def presionar(e):
             pass
-        
-        # filter_students = ft.SearchBar(
-        #     view_elevation=4,
-        #     divider_color=ft.colors.AMBER,
-        #     bar_hint_text="Buscar Estudiante",
-        #     view_hint_text="Coloque el nombre del estudiante",
-        #     on_change=cambio,
-        #     on_submit=enter,
-        #     on_tap=presionar,
-        #     icon=ft.icons.SEARCH
-        #     )
-        
+
         table = ft.DataTable(
             column_spacing=200,
             columns = [
@@ -37,16 +26,17 @@ class StudentsList(ft.UserControl):
                 ft.DataColumn(ft.Text('Apellido')),
                 ft.DataColumn(ft.Text('Cedula'), numeric = True)
             ],
-            rows = [
-                 ft.DataRow(
-                    cells = [
-                        ft.DataCell(ft.Text('Yorgel')), #Variable para el nombre del estudiante
-                        ft.DataCell(ft.Text('Páez')), #variable para el apellido de un estudiante
-                        ft.DataCell(ft.Text(1000000)), #Variable para la cedula de un estudiante
-                    ],
-                ),
-            ]
         )
+        for records in students_database.query_students():
+            table.rows.append(
+                ft.DataRow (
+                    cells = [
+                        ft.DataCell(ft.Text(records[1])),
+                        ft.DataCell(ft.Text(records[2])),
+                        ft.DataCell(ft.Text(records[3]))
+                    ]
+                )
+            )
 
         view = ft.Column([
             ft.Row(
