@@ -46,7 +46,7 @@ class days_database():
         cur.execute(
             "CREATE TABLE IF NOT EXISTS days ( \
                 id INTEGER PRIMARY KEY, \
-                day text, \
+                day text \
             )"
         )
         con.commit()
@@ -120,7 +120,6 @@ class attendance_database():
         con = sqlite3.connect('horus.db')
         con.execute("PRAGMA foreign_keys = ON")
         cur = con.cursor()
-        # cur.execute("SELECT (destination, date, time, price), (id_card_number, first_name, last_name, passport, phone_number) FROM students JOIN attendances ON students.id = attendances.student_id JOIN days ON days.id = attendances.day_id WHERE attendances.id = ?", (id, ))
         cur.execute("SELECT students.*, days.* FROM students JOIN attendances ON students.id = attendances.student_id JOIN days ON days.id = attendances.day_id WHERE attendances.id = ?", (id, ))
         attendance = cur.fetchone()
         con.close()
