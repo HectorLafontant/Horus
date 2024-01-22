@@ -13,10 +13,12 @@ class MainMenu(ft.UserControl):
             height=200,
             fit=ft.ImageFit.CONTAIN
         )
-        
-        register_student_button = ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
-        register_student_button.on_click = lambda _: self.page.go('/register')
 
+        list_students_button = ft.ElevatedButton(text='Lista de estudiantes', height=50, width=400)
+        list_students_button.on_click = lambda _: self.page.go('/students_list')
+
+        attendance_days_button = ft.ElevatedButton(text='Dias de asistencia', height=50, width=400)
+        attendance_days_button.on_click = lambda _: self.page.go('/attendance_days')
 
         view = ft.Column(
             [
@@ -34,19 +36,19 @@ class MainMenu(ft.UserControl):
                 ),
                 ft.Row(
                     [
-                        ft.ElevatedButton(text='Gestion de asistencia', height=50, width=400)
+                        list_students_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
                 ft.Row(
                     [
-                        register_student_button
+                        attendance_days_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
                 ft.Row(
                     [
-                        ft.ElevatedButton(text='Registrar asistencia', height=50, width=400)
+                        ft.ElevatedButton(text='Ver asistencias', height=50, width=400)
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 )

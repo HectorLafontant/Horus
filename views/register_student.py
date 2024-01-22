@@ -1,4 +1,5 @@
 import flet as ft
+from DataBase import students_database
 
 class RegisterStudent(ft.UserControl):
     def __init__(self, page):
@@ -7,62 +8,39 @@ class RegisterStudent(ft.UserControl):
 
     def build(self):
 
-        menu_button = ft.ElevatedButton(text='Volver al menu principal', height=50, width=400)
-        menu_button.on_click = lambda _: self.page.go('/')
+        menu_button = ft.ElevatedButton(text='Volver', height=50, width=400)
+        menu_button.on_click = lambda _: self.page.go('/students_list')
 
-        first_name_field = ft.Column(
-            [
-                ft.Row(
-                    [
-                        ft.Text(value='Nombre', weight=ft.FontWeight.BOLD, size=24)
-                    ]
-                ),
-                ft.Row(
-                    [
-                        ft.TextField(expand=True)
-                    ]
-                )
-            ],
-            spacing= 10
-        )
+        register_student_button = ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
+        register_student_button.on_click = lambda _: register_student()
 
-        last_name_field = ft.Column(
-            [
-                ft.Row(
-                    [
-                        ft.Text(value='Apellido', weight=ft.FontWeight.BOLD, size=24)
-                    ]
-                ),
-                ft.Row(
-                    [
-                        ft.TextField(expand=True)
-                    ]
-                )
-            ],
-            spacing= 10
-        )
+        def register_student():
+            students_database.add_student_record(first_name_field.value, last_name_field.value, id_field.value)
+            first_name_field.value = ''
+            last_name_field.value = ''
+            id_field.value = ''
 
-        id_field = ft.Column(
-            [
-                ft.Row(
-                    [
-                        ft.Text(value='Cedula', weight=ft.FontWeight.BOLD, size=24)
-                    ]
-                ),
-                ft.Row(
-                    [
-                        ft.TextField(expand=True)
-                    ]
-                )
-            ],
-            spacing= 10
-        )
+        first_name_field = ft.TextField (expand=True, label='Nombre')
+        last_name_field = ft.TextField (expand=True, label='Apellido')
+        id_field = ft.TextField (expand=True, label='Cedula')
 
         fields = ft.Column(
             [
-                first_name_field,
-                last_name_field,
-                id_field
+                ft.Row([
+                    first_name_field
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row([
+                    last_name_field
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row([
+                    id_field
+                ],
+                alignment=ft.MainAxisAlignment.CENTER
+                )
             ],
             spacing=25
         )
@@ -71,7 +49,7 @@ class RegisterStudent(ft.UserControl):
             [
                 ft.Row(
                     [
-                        ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
+                        register_student_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
