@@ -46,16 +46,17 @@ class days_database():
         cur.execute(
             "CREATE TABLE IF NOT EXISTS days ( \
                 id INTEGER PRIMARY KEY, \
-                day text \
+                day text, \
+                month text \
             )"
         )
         con.commit()
         con.close()
 
-    def add_day_record(day):
+    def add_day_record(day, month):
         con = sqlite3.connect('horus.db')
         cur = con.cursor()
-        cur.execute("INSERT INTO days VALUES (NULL, ?)", (day, ))
+        cur.execute("INSERT INTO days VALUES (NULL, ?, ?)", (day, month))
         con.commit()
         con.close()
 

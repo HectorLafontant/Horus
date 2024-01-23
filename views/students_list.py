@@ -8,7 +8,10 @@ class StudentsList(ft.UserControl):
     def build(self):
 
         register_student_button = ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
-        register_student_button.on_click = lambda _: self.page.go('/register')
+        register_student_button.on_click = lambda _: self.page.go('/register_student')
+
+        menu_button = ft.ElevatedButton(text='Volver al menu principal', height=50, width=400)
+        menu_button.on_click = lambda _: self.page.go('/')
 
         def cambio(e):
             pass
@@ -20,7 +23,7 @@ class StudentsList(ft.UserControl):
             pass
 
         table = ft.DataTable(
-            column_spacing=200,
+            expand=True,
             columns = [
                 ft.DataColumn(ft.Text('Nombre')),
                 ft.DataColumn(ft.Text('Apellido')),
@@ -38,26 +41,41 @@ class StudentsList(ft.UserControl):
                 )
             )
 
-        view = ft.Column([
-            ft.Row(
-                [
-                    register_student_button
-                ],
-                alignment=ft.MainAxisAlignment.CENTER
-            ),
-            ft.Row(
-                [
-                    table
-                ],
-                alignment=ft.MainAxisAlignment.CENTER
-            ),
-            ft.Row(
-                [
-                    ft.ElevatedButton(text='Volver al menu principal', height=50, width=400, on_click=lambda _: self.page.go('/'))
-                ],
-                alignment=ft.MainAxisAlignment.CENTER
-            )
-        ],
-        spacing = 50,
+        content = ft.Column(
+            [
+                ft.Row(
+                    [
+                        register_student_button
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row(
+                    [
+                        table
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row(
+                    [
+                        menu_button
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
+                )
+            ],
+        )
+
+        view = ft.Column(
+            [
+                ft.Row(
+                    [
+                        ft.Text(value='LISTA DE ESTUDIANTES', weight=ft.FontWeight.BOLD, size=32)
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
+                ),
+                content
+            ],
+            spacing = 50,
+            # height=self.page.height,
+            # alignment=ft.MainAxisAlignment.SPACE_BETWEEN
         )
         return view

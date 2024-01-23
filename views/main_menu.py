@@ -20,6 +20,9 @@ class MainMenu(ft.UserControl):
         attendance_days_button = ft.ElevatedButton(text='Dias de asistencia', height=50, width=400)
         attendance_days_button.on_click = lambda _: self.page.go('/attendance_days')
 
+        student_attendance_button = ft.ElevatedButton(text='Lista de asistencia', height=50, width=400)
+        student_attendance_button.on_click = lambda _: self.page.go('/student_attendance')
+
         view = ft.Column(
             [
                 ft.Row(
@@ -48,7 +51,7 @@ class MainMenu(ft.UserControl):
                 ),
                 ft.Row(
                     [
-                        ft.ElevatedButton(text='Ver asistencias', height=50, width=400)
+                        student_attendance_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 )
