@@ -9,9 +9,9 @@ class StudentAttendance(ft.UserControl):
         self.page = page
 
     def build(self):
-
-        # register_day_button = ft.ElevatedButton(text='Registrar dia', height=50, width=400)
-        # register_day_button.on_click = lambda _: self.page.go('/register_day')
+        print(attendance_database.query_attendances())
+        register_student_attendance_button = ft.ElevatedButton(text='Registrar Asistencia', height=50, width=400)
+        register_student_attendance_button.on_click = lambda _: self.page.go('/register_student_attendance')
 
         menu_button = ft.ElevatedButton(text='Volver al menu principal', height=50, width=400)
         menu_button.on_click = lambda _: self.page.go('/')
@@ -37,14 +37,20 @@ class StudentAttendance(ft.UserControl):
             for day_record in days_database.query_days():
 
                 data_cells.append(
-                    ft.DataCell(ft.Checkbox(value=False))
+                    ft.DataCell(ft.Icon(name=ft.icons.CLOSE))
                 )
             table.rows.append(
                 ft.DataRow (
                     cells=data_cells
                 )
             )
+        
+        check = ft.DataCell(ft.Icon(name=ft.icons.CHECK))
 
+        for records in attendance_database.query_attendances():
+            row = table.rows[records[0] - 1]
+            row.cells[records[4]] = check
+            table.rows[int(records[0])-1] = row
         view = ft.Column(
             [
                 ft.Row(
@@ -55,6 +61,12 @@ class StudentAttendance(ft.UserControl):
                             size=32,
                             text_align=ft.TextAlign.CENTER
                             )
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
+                ),
+                ft.Row(
+                    [
+                        register_student_attendance_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
