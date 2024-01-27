@@ -1,7 +1,7 @@
 import flet as ft
-from DataBase import students_database
+from DataBase import days_database
 
-class RegisterStudent(ft.UserControl):
+class RegisterDay(ft.UserControl):
     def __init__(self, page):
         super().__init__()
         self.page = page
@@ -9,38 +9,31 @@ class RegisterStudent(ft.UserControl):
     def build(self):
 
         menu_button = ft.ElevatedButton(text='Volver', height=50, width=400)
-        menu_button.on_click = lambda _: self.page.go('/students_list')
+        menu_button.on_click = lambda _: self.page.go('/attendance_days')
 
-        register_student_button = ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
-        register_student_button.on_click = lambda _: register_student()
+        register_day_button = ft.ElevatedButton(text='Registrar dia', height=50, width=400)
+        register_day_button.on_click = lambda _: register_day()
 
-        def register_student():
-            if first_name_field.value == '' or last_name_field.value == '' or id_field.value == '':
+        def register_day():
+            if day_field.value == '' or month_field.value == '':
                 return
-            students_database.add_student_record(first_name_field.value, last_name_field.value, id_field.value)
-            first_name_field.value = ''
-            last_name_field.value = ''
-            id_field.value = ''
+            days_database.add_day_record(day_field.value, month_field.value)
+            day_field.value = ''
+            month_field.value = ''
             fields.update()
 
-        first_name_field = ft.TextField (expand=True, label='Nombre')
-        last_name_field = ft.TextField (expand=True, label='Apellido')
-        id_field = ft.TextField (expand=True, label='Cedula')
+        day_field = ft.TextField (expand=True, label='Dia')
+        month_field = ft.TextField (expand=True, label='Mes')
 
         fields = ft.Column(
             [
                 ft.Row([
-                    first_name_field
+                    day_field
                 ],
                 alignment=ft.MainAxisAlignment.CENTER
                 ),
                 ft.Row([
-                    last_name_field
-                ],
-                alignment=ft.MainAxisAlignment.CENTER
-                ),
-                ft.Row([
-                    id_field
+                    month_field
                 ],
                 alignment=ft.MainAxisAlignment.CENTER
                 )
@@ -52,7 +45,7 @@ class RegisterStudent(ft.UserControl):
             [
                 ft.Row(
                     [
-                        register_student_button
+                        register_day_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),
@@ -70,7 +63,11 @@ class RegisterStudent(ft.UserControl):
             [
                 ft.Row(
                     [
-                        ft.Text(value='REGISTRAR ESTUDIANTES', weight=ft.FontWeight.BOLD, size=32)
+                        ft.Text(
+                            value='REGISTRAR DIA DE\nASISTENCIA',
+                            weight=ft.FontWeight.BOLD, size=32,
+                            text_align=ft.TextAlign.CENTER
+                        )
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
                 ),

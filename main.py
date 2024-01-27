@@ -10,7 +10,7 @@ def main(page: ft.Page):
         page.views.append(
             router_handler(page)[page.route]
         )
-    
+    page.padding = 50
     page.on_route_change = route_change
     page.go('/')
 
