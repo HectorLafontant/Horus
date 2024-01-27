@@ -6,6 +6,7 @@ from views.students_list import StudentsList
 from views.register_day import RegisterDay
 from views.attendance_days import AttendanceDays
 from views.student_attendance import StudentAttendance
+from views.register_student_attendance import RegisterStudentAttendance
 
 def router_handler(page):
     return {
@@ -37,6 +38,12 @@ def router_handler(page):
             route='/attendance_days',
             controls=[
                 AttendanceDays(page)
+            ]
+        ),
+        '/register_student_attendance': ft.View(
+            route='/register_student_attendance',
+            controls=[
+                RegisterStudentAttendance(page)
             ]
         ),
         '/student_attendance': ft.View(
