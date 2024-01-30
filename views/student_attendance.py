@@ -2,19 +2,32 @@ import flet as ft
 from DataBase import days_database
 from DataBase import attendance_database
 from DataBase import students_database
-
+import VoiceCommand as vc
+from threading import Timer
 class StudentAttendance(ft.UserControl):
     def __init__(self, page):
         super().__init__()
         self.page = page
 
     def build(self):
-        print(attendance_database.query_attendances())
-        register_student_attendance_button = ft.ElevatedButton(text='Registrar Asistencia', height=50, width=400)
+
+        register_student_attendance_button = ft.ElevatedButton(text='Registrar asistencia', height=50, width=400)
         register_student_attendance_button.on_click = lambda _: self.page.go('/register_student_attendance')
 
-        menu_button = ft.ElevatedButton(text='Volver al menu principal', height=50, width=400)
+        menu_button = ft.ElevatedButton(text='Volver', height=50, width=400)
         menu_button.on_click = lambda _: self.page.go('/')
+
+        def talk():
+            command = vc.talk()
+            if command == 'registrar asistencia':
+                self.page.go('/register_student_attendance')
+            elif command == 'volver':
+                self.page.go('/')
+            else:
+                t = Timer(1.0, talk)
+                t.start()
+        t = Timer(1.0, talk)
+        t.start()
 
         table = ft.DataTable(
             expand=True,

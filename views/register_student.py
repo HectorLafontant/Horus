@@ -1,6 +1,7 @@
 import flet as ft
 from DataBase import students_database
-
+import VoiceCommand as vc
+from threading import Timer
 class RegisterStudent(ft.UserControl):
     def __init__(self, page):
         super().__init__()
@@ -8,11 +9,23 @@ class RegisterStudent(ft.UserControl):
 
     def build(self):
 
+        register_student_button = ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
+        register_student_button.on_click = lambda _: register_student()
+
         menu_button = ft.ElevatedButton(text='Volver', height=50, width=400)
         menu_button.on_click = lambda _: self.page.go('/students_list')
 
-        register_student_button = ft.ElevatedButton(text='Registrar estudiante', height=50, width=400)
-        register_student_button.on_click = lambda _: register_student()
+        def talk():
+            command = vc.talk()
+            if command == 'registrar estudiante' or command == 'registrar estudiantes':
+                register_student()
+            elif command == 'volver':
+                self.page.go('/students_list')
+            else:
+                t = Timer(1.0, talk)
+                t.start()
+        t = Timer(1.0, talk)
+        t.start()
 
         def register_student():
             if first_name_field.value == '' or last_name_field.value == '' or id_field.value == '':
