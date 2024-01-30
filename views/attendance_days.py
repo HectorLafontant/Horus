@@ -1,5 +1,7 @@
 import flet as ft
 from DataBase import days_database
+import VoiceCommand as vc
+from threading import Timer
 class AttendanceDays(ft.UserControl):
     def __init__(self, page):
         super().__init__()
@@ -7,11 +9,23 @@ class AttendanceDays(ft.UserControl):
 
     def build(self):
 
-        register_day_button = ft.ElevatedButton(text='Registrar dia', height=50, width=400)
+        register_day_button = ft.ElevatedButton(text='Registrar día', height=50, width=400)
         register_day_button.on_click = lambda _: self.page.go('/register_day')
 
-        menu_button = ft.ElevatedButton(text='Volver al menu principal', height=50, width=400)
+        menu_button = ft.ElevatedButton(text='Volver', height=50, width=400)
         menu_button.on_click = lambda _: self.page.go('/')
+
+        def talk():
+            command = vc.talk()
+            if command == 'registrar día':
+                self.page.go('/register_day')
+            elif command == 'volver':
+                self.page.go('/')
+            else:
+                t = Timer(1.0, talk)
+                t.start()
+        t = Timer(1.0, talk)
+        t.start()
 
         table = ft.DataTable(
             expand=True,
