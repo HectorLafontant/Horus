@@ -31,27 +31,41 @@ class AttendanceDays(ft.UserControl):
             expand=True,
             columns = [
                 ft.DataColumn(ft.Text('Dia')),
-                ft.DataColumn(ft.Text('Mes'))
+                ft.DataColumn(ft.Text('Mes')),
+                ft.DataColumn(ft.Text('Delete'))
             ],
         )
+
+        def delete_record(e):
+            days_database.delete_day_record_by_id(e.control.data)
+            table.rows.clear()
+            for records in days_database.query_days():
+                button = ft.IconButton(icon=ft.icons.DELETE, on_click=delete_record, data=records[0])
+                table.rows.append(
+                    ft.DataRow (
+                        cells = [
+                            ft.DataCell(ft.Text(records[1])),
+                            ft.DataCell(ft.Text(records[2])),
+                            ft.DataCell(button)
+                        ]
+                    )
+                )
+            table.update()
+
         for records in days_database.query_days():
+            button = ft.IconButton(icon=ft.icons.DELETE, on_click=delete_record, data=records[0])
             table.rows.append(
                 ft.DataRow (
                     cells = [
                         ft.DataCell(ft.Text(records[1])),
-                        ft.DataCell(ft.Text(records[2]))
+                        ft.DataCell(ft.Text(records[2])),
+                        ft.DataCell(button)
                     ]
                 )
             )
 
-        view = ft.Column(
+        content = ft.Column(
             [
-                ft.Row(
-                    [
-                        ft.Text(value='DIAS DE ASISTENCIA', weight=ft.FontWeight.BOLD, size=32)
-                    ],
-                    alignment=ft.MainAxisAlignment.CENTER
-                ),
                 ft.Row(
                     [
                         register_day_button
@@ -69,11 +83,24 @@ class AttendanceDays(ft.UserControl):
                         menu_button
                     ],
                     alignment=ft.MainAxisAlignment.CENTER
+                )
+            ],
+            height=500,
+            scroll="always",
+            on_scroll_interval=0
+        )
+
+        view = ft.Column(
+            [
+                ft.Row(
+                    [
+                        ft.Text(value='DIAS DE ASISTENCIA', weight=ft.FontWeight.BOLD, size=32)
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
                 ),
+                content
             ],
             spacing = 50,
-            height=self.page.height,
-            alignment=ft.MainAxisAlignment.CENTER
         )
         
         return view
