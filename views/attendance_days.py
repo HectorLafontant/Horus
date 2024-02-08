@@ -32,7 +32,7 @@ class AttendanceDays(ft.UserControl):
             columns = [
                 ft.DataColumn(ft.Text('Dia')),
                 ft.DataColumn(ft.Text('Mes')),
-                ft.DataColumn(ft.Text('Delete'))
+                ft.DataColumn(ft.Text('Borrar'))
             ],
         )
 

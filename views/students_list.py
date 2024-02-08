@@ -33,7 +33,7 @@ class StudentsList(ft.UserControl):
                 ft.DataColumn(ft.Text('Nombre')),
                 ft.DataColumn(ft.Text('Apellido')),
                 ft.DataColumn(ft.Text('Cedula')),
-                ft.DataColumn(ft.Text('Delete'))
+                ft.DataColumn(ft.Text('Borrar'))
             ],
         )
 
