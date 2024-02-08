@@ -30,10 +30,11 @@ class students_database():
         con.close()
         return records
 
-    def delete_students_records():
+    def delete_student_record_by_id(id):
         con = sqlite3.connect('horus.db')
         cur = con.cursor()
-        cur.execute("DELETE FROM students")
+        cur.execute("DELETE FROM attendances WHERE student_id = ?", (id,))
+        cur.execute("DELETE FROM students WHERE id = ?", (id,))
         con.commit()
         con.close()
 
@@ -68,10 +69,11 @@ class days_database():
         con.close()
         return records
 
-    def delete_days_records():
+    def delete_day_record_by_id(id):
         con = sqlite3.connect('horus.db')
         cur = con.cursor()
-        cur.execute("DELETE FROM days")
+        cur.execute("DELETE FROM attendances WHERE day_id = ?", (id,))
+        cur.execute("DELETE FROM days WHERE id = ?", (id,))
         con.commit()
         con.close()
 

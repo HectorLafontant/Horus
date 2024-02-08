@@ -30,8 +30,6 @@ class RegisterStudentAttendance(ft.UserControl):
         t.start()
 
         def register_student_attendance():
-            print(students_drop_down.value)
-            print(days_drop_down.value)
             if students_drop_down.value == None or days_drop_down.value == None:
                 return
             for records in attendance_database.query_attendances():
@@ -42,15 +40,11 @@ class RegisterStudentAttendance(ft.UserControl):
         students_drop_down = ft.Dropdown(width=200)
         days_drop_down = ft.Dropdown(width=200)
 
-        id = 1
         for records in students_database.query_students():
-            students_drop_down.options.append(ft.dropdown.Option(key=id, text=records[2]))
-            id += 1
+            students_drop_down.options.append(ft.dropdown.Option(key=records[0], text=records[2]))
 
-        id = 1
         for records in days_database.query_days():
-            days_drop_down.options.append(ft.dropdown.Option(key=id, text=records[1] + '/' + records[2]))
-            id += 1
+            days_drop_down.options.append(ft.dropdown.Option(key=records[0], text=records[1] + '/' + records[2]))
 
         fields = ft.Column(
             [

@@ -26,26 +26,48 @@ class StudentsList(ft.UserControl):
                 t.start()
         t = Timer(1.0, talk)
         t.start()
-
+        
         table = ft.DataTable(
             expand=True,
             columns = [
                 ft.DataColumn(ft.Text('Nombre')),
                 ft.DataColumn(ft.Text('Apellido')),
-                ft.DataColumn(ft.Text('Cedula'), numeric = True)
+                ft.DataColumn(ft.Text('Cedula')),
+                ft.DataColumn(ft.Text('Delete'))
             ],
         )
+
+        def delete_record(e):
+            students_database.delete_student_record_by_id(e.control.data)
+            students = students_database.query_students()
+            table.rows.clear()
+            for records in students_database.query_students():
+                button = ft.IconButton(icon=ft.icons.DELETE, on_click=delete_record, data=records[0])
+                table.rows.append(
+                    ft.DataRow (
+                        cells = [
+                            ft.DataCell(ft.Text(records[1])),
+                            ft.DataCell(ft.Text(records[2])),
+                            ft.DataCell(ft.Text(records[3])),
+                            ft.DataCell(button)
+                        ]
+                    )
+                )
+            table.update()
+            
         for records in students_database.query_students():
+            button = ft.IconButton(icon=ft.icons.DELETE, on_click=delete_record, data=records[0])
             table.rows.append(
                 ft.DataRow (
                     cells = [
                         ft.DataCell(ft.Text(records[1])),
                         ft.DataCell(ft.Text(records[2])),
-                        ft.DataCell(ft.Text(records[3]))
+                        ft.DataCell(ft.Text(records[3])),
+                        ft.DataCell(button)
                     ]
                 )
             )
-
+        
         content = ft.Column(
             [
                 ft.Row(
@@ -57,8 +79,7 @@ class StudentsList(ft.UserControl):
                 ft.Row(
                     [
                         table
-                    ],
-                    alignment=ft.MainAxisAlignment.CENTER
+                    ]
                 ),
                 ft.Row(
                     [
@@ -67,6 +88,9 @@ class StudentsList(ft.UserControl):
                     alignment=ft.MainAxisAlignment.CENTER
                 )
             ],
+            height=500,
+            scroll="always",
+            on_scroll_interval=0
         )
 
         view = ft.Column(
@@ -80,7 +104,5 @@ class StudentsList(ft.UserControl):
                 content
             ],
             spacing = 50,
-            # height=self.page.height,
-            # alignment=ft.MainAxisAlignment.SPACE_BETWEEN
         )
         return view
